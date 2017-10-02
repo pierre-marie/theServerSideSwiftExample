@@ -1,0 +1,4 @@
+module mqttplugin {
+    umbrella "/Users/pierrot/vo2/theServerSideSwiftExample/server_app/.build/checkouts/SwiftMetrics.git-8417478658542232501/Sources/mqttplugin/include"
+    export *
+}
