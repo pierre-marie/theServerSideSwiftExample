@@ -4,21 +4,28 @@
 //
 //  Created by pierre-marie de jaureguiberry on 9/30/17.
 //  Copyright © 2017 vo2. All rights reserved.
-//
+//       __
+//      /_/\
+//     / /\ \
+//    / / /\ \
+//   / / /\ \ \
+//  / /_/__\ \ \
+// /_/______\_\/\
+// \_\_________\/ WTF PROGRAMMING CLUB
 
 import UIKit
 import os.log
 
 // UNCOMMENT TO USE SWIFT BACKEND SERVER
-//import Server_app_iOS_SDK
-//extension Creature {
-//    func asServerCreature() -> Server_app_iOS_SDK.Creature {
-//        let serverCreature = Server_app_iOS_SDK.Creature()
-//        serverCreature.name = self.name
-//        serverCreature.picture = UIImageJPEGRepresentation(self.picture!, 0)?.base64EncodedString()
-//        return serverCreature
-//    }
-//}
+import Server_app_iOS_SDK
+extension Creature {
+    func asServerCreature() -> Server_app_iOS_SDK.Creature {
+        let serverCreature = Server_app_iOS_SDK.Creature()
+        serverCreature.name = self.name
+        serverCreature.picture = UIImageJPEGRepresentation(self.picture!, 0)?.base64EncodedString()
+        return serverCreature
+    }
+}
 
 class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -29,21 +36,21 @@ class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIIma
     //MARK: Send a creature to server
     
     // UNCOMMENT TO USE SWIFT BACKEND SERVER
-//    private func saveToServer(creature: Creature) {
-//        
-//        CreatureAPI.creatureCreate(data: creature.asServerCreature()) { (returnedData, response, error) in
-//            guard error == nil else {
-//                print(error!)
-//                return
-//            }
-//            if let result = returnedData {
-//                print(result)
-//            }
-//            if let status = response?.statusCode {
-//                print("ServerCreatureAPI.serverCreatureCreate() finished with status code: \(status)")
-//            }
-//        }
-//    }
+    private func saveToServer(creature: Creature) {
+        
+        CreatureAPI.creatureCreate(data: creature.asServerCreature()) { (returnedData, response, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            if let result = returnedData {
+                print(result)
+            }
+            if let status = response?.statusCode {
+                print("ServerCreatureAPI.serverCreatureCreate() finished with status code: \(status)")
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +102,7 @@ class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         
         // UNCOMMENT TO USE SWIFT BACKEND SERVER
-//        saveToServer(creature: creature!)
+        saveToServer(creature: creature!)
 
         self.dismiss(animated: true) {}
         return
