@@ -55,6 +55,5 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.photoImageView?.image = currentCreature?.picture
         return cell
     }
-
 }
 

@@ -9,11 +9,41 @@
 import UIKit
 import os.log
 
+// UNCOMMENT TO USE SWIFT BACKEND SERVER
+//import Server_app_iOS_SDK
+//extension Creature {
+//    func asServerCreature() -> Server_app_iOS_SDK.Creature {
+//        let serverCreature = Server_app_iOS_SDK.Creature()
+//        serverCreature.name = self.name
+//        serverCreature.picture = UIImageJPEGRepresentation(self.picture!, 0)?.base64EncodedString()
+//        return serverCreature
+//    }
+//}
+
 class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var creatureImageView: UIImageView!
     @IBOutlet weak var creatureNameTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
+    
+    //MARK: Send a creature to server
+    
+    // UNCOMMENT TO USE SWIFT BACKEND SERVER
+//    private func saveToServer(creature: Creature) {
+//        
+//        CreatureAPI.creatureCreate(data: creature.asServerCreature()) { (returnedData, response, error) in
+//            guard error == nil else {
+//                print(error!)
+//                return
+//            }
+//            if let result = returnedData {
+//                print(result)
+//            }
+//            if let status = response?.statusCode {
+//                print("ServerCreatureAPI.serverCreatureCreate() finished with status code: \(status)")
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,38 +81,24 @@ class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIIma
         let picture = creatureImageView.image
         let creature = Creature(name: name, picture: picture)
         
-        guard var creatures = loadCreatures() else {
-            
-            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject([creature], toFile: Creature.ArchiveURL.path)
-            if isSuccessfulSave {
-                os_log("Creatures successfully saved.", log: OSLog.default, type: .debug)
-            } else {
-                os_log("Failed to save creatures...", log: OSLog.default, type: .error)
-            }
-            self.dismiss(animated: true) {}
-            return
+        var isSuccessfulSave = true
+        if var creatures = loadCreatures() {
+            creatures.append(creature!)
+            isSuccessfulSave = NSKeyedArchiver.archiveRootObject(creatures, toFile: Creature.ArchiveURL.path)
+        } else {
+            isSuccessfulSave = NSKeyedArchiver.archiveRootObject([creature], toFile: Creature.ArchiveURL.path)
         }
-        
-        creatures.append(creature!)
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(creatures, toFile: Creature.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("Creatures successfully saved.", log: OSLog.default, type: .debug)
         } else {
             os_log("Failed to save creatures...", log: OSLog.default, type: .error)
         }
+        
+        // UNCOMMENT TO USE SWIFT BACKEND SERVER
+//        saveToServer(creature: creature!)
+
         self.dismiss(animated: true) {}
-        
-        /* // UNCOMMENT TO USE SWIFT BACKEND SERVER
-         for creature in creatures {
-         saveToServer(creature: creature)
-         }
-         */
-    }
-    
-    //MARK: UITextFieldDelegate
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+        return
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -97,7 +113,6 @@ class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIIma
     
     //MARK: UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // Dismiss the picker if the user canceled.
         dismiss(animated: true, completion: nil)
     }
     
@@ -114,5 +129,5 @@ class CreateCreatureViewController: UIViewController, UITextFieldDelegate, UIIma
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
-    
+
 }
