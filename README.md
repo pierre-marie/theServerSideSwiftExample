@@ -31,7 +31,7 @@ sudo xcode-select -switch ~/PATH_TO_YOUR_XCODE_8/Xcode.app/
 ## Generate model
 `yo swiftserver:model`
 
-Create a model called "Creature" with the following attributes
+Create a model called "Creature" with the following attributes.
 
 | attribute        | type       |
 | ------------- |:-------------:|
@@ -43,8 +43,8 @@ Create a model called "Creature" with the following attributes
 ## Open generated server project
 `open server_app.xcodeproj`
 
-- target settings : Run -> select 'server_app'
-- start the server locally
+- Target settings : Run -> select 'server_app'.
+- Start the server locally.
 
 ## Generated webpages
 - http://localhost:8080/
@@ -52,9 +52,10 @@ Create a model called "Creature" with the following attributes
 - http://localhost:8080/explorer/
 
 ## Use the generated iOS SDK in the iOS app
+
 ###(not mandatory)
-- unzip `server_app_iOS_SDK.zip` and put it in the iOS app directory.
-- Init cocoapod
+- Unzip `server_app_iOS_SDK.zip` and put it in the iOS app directory.
+- Init cocoapod.
 
 `pod init`
 
@@ -68,7 +69,7 @@ target 'theServerSideSwift' do
   use_frameworks!
 
   # Pods for theServerSideSwift
-	pod 'Server_app_iOS_SDK', :path => "../server_app/Server_app_iOS_SDK"
+	pod 'Server_app_iOS_SDK', :path => "Server_app_iOS_SDK"
 end
 ```
 
@@ -83,7 +84,14 @@ end
 
 ## Deploy the server
 
-Dont forget to create a **Procfile** in the root directory of the server_app
+Dont forget to create a **Procfile** in the root directory of the server_app.
+
+```
+web: server_app
+
+```
+
+Then, plug your server_app directory to the heroku remote and push to deploy.
 
 ```
 git init
@@ -98,4 +106,4 @@ git push heroku master
 `heroku open`
 
 
-Thanks [ianpartridge](https://github.com/ianpartridge) and [seabaylea](https://github.com/seabaylea)
+*Thanks [ianpartridge](https://github.com/ianpartridge) and [seabaylea](https://github.com/seabaylea)*
