@@ -89,7 +89,6 @@ Dont forget to create a **Procfile** in the root directory of the server_app.
 
 ```
 web: server_app
-
 ```
 
 Then, plug your server_app directory to the heroku remote and push to deploy.
