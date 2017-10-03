@@ -53,7 +53,8 @@ Create a model called "Creature" with the following attributes.
 
 ## Use the generated iOS SDK in the iOS app
 
-###(not mandatory)
+(not mandatory)
+
 - Unzip `server_app_iOS_SDK.zip` and put it in the iOS app directory.
 - Init cocoapod.
 
