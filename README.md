@@ -1,3 +1,5 @@
+![alt kitura](https://github.com/pierre-marie/theServerSideSwiftExample/blob/master/kitura.png)
+
 ## Pre-Requisites:
 
 If you have different versions of Xcode locally installed, you need to switch to Xcode 8.x. to use Swift 3.1
